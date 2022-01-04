@@ -1,0 +1,95 @@
+{% extends "baseHotel.html" %} {%block content%}
+<div>
+  <form method="POST" action="">
+    {{form.hidden_tag()}}
+    <fieldset>
+      <legend style="font-size: large">Registrera dig</legend>
+      <div>
+        {{form.personnummer.label(class="form-control-label")}} {%if
+        form.personnummer.errors%} {{form.personnummer(class="form-control form-control-lg
+        is-invalid", placeholder="ÅÅÅÅMMDDXXXX")}}
+        <div class="invalid-feedback">
+          {% for error in form.personnummer.errors%}
+          <span>{{error}}</span>
+          {%endfor%}
+        </div>
+        {%else%} {{form.personnummer(class="form-control form-control-lg", placeholder="ÅÅÅÅMMDDXXXX")}} {%endif%}
+      </div>
+
+      <div class="form-group">
+        {{form.användarnamn.label()}} {%if
+        form.användarnamn.errors%} {{form.användarnamn(class="form-control
+        form-control-lg is-invalid", placeholder="Mellan två och tjugo tecken")}}
+        <div class="invalid-feedback">
+          {% for error in form.användarnamn.errors%}
+          <span>{{error}}</span>
+          {%endfor%}
+        </div>
+        {%else%} {{form.användarnamn(class="form-control form-control-lg", placeholder="Mellan två och tjugo tecken")}}
+        {%endif%}
+      </div>
+
+
+      <div>
+        {{form.email.label(class="form-control-label")}} {%if
+        form.email.errors%} {{form.email(class="form-control form-control-lg
+        is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.email.errors%}
+          <span>{{error}}</span>
+          {%endfor%}
+        </div>
+        {%else%} {{form.email(class="form-control form-control-lg")}} {%endif%}
+      </div>
+
+      <div>
+        {{form.mobilnummer.label(class="form-control-label")}} {%if
+        form.mobilnummer.errors%} {{form.mobilnummer(class="form-control form-control-lg
+        is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.mobilnummer.errors%}
+          <span>{{error}}</span>
+          {%endfor%}
+        </div>
+        {%else%} {{form.mobilnummer(class="form-control form-control-lg")}} {%endif%}
+      </div>
+
+      <div>
+        {{form.lösenord.label(class="form-control-label")}} {%if
+        form.lösenord.errors%} {{form.lösenord(class="form-control
+        form-control-lg is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.lösenord.errors%}
+          <span>{{error}}</span>
+          {%endfor%}
+        </div>
+        {%else%} {{form.lösenord(class="form-control form-control-lg")}}
+        {%endif%}
+      </div>
+
+      <div>
+        {{form.konfirmera_lösenord.label(class="form-control-label")}} {%if
+        form.konfirmera_lösenord.errors%}
+        {{form.konfirmera_lösenord(class="form-control form-control-lg
+        is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.konfirmera_lösenord.errors%}
+          <span>{{error}}</span>
+          {%endfor%}
+        </div>
+        {%else%} {{form.konfirmera_lösenord(class="form-control
+        form-control-lg")}} {%endif%}
+      </div>
+    </fieldset>
+    <div class="w3-margin-bottom">
+      {{ form.submit(class="btn btn-outline-info")}}
+    </div>
+  </form>
+</div>
+
+<div>
+  <small class="w3-medium">
+    Har ni redan en konto? <a href="{{url_for('loggain') }}">Logga in</a>
+  </small>
+</div>
+{%endblock%}

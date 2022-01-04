@@ -1,0 +1,288 @@
+{% extends 'baseHotel.html'%} {%block navbar%}
+
+  <a href="/templates/hotel.html "><i class="fa fa-fw fa-home"></i>Hem</a>
+  <a href="{{ url_for('omWaikiki')}}"
+    ><i class="fa fa-fw fa-search"></i>Om Waikiki</a
+  >
+  <a href="#kontakt"><i class="fa fa-fw fa-envelope"></i>Kontakta Oss</a>
+
+{%endblock%} {%block title%} Boka Rum {%endblock%} {%block content%}
+
+<style>
+  .filterDiv {
+    float: left;
+    background-color: #2196F3;
+    color: #ffffff;
+    width: 490px;
+    line-height: 25px;
+    text-align: left;
+    display: none;
+  }
+  
+  .show {
+    display: block;
+  }
+  
+  .container {
+    margin-top: 20px;
+    overflow: hidden;
+  }
+  
+  /* Style the buttons */
+  .bton {
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  .bton:hover {
+    background-color: #ddd;
+  }
+  
+  .bton.active {
+    background-color: #666;
+    color: white;
+  }
+
+  #Input1, #Input2, #Input3, #Input4 {
+  width: 100%;
+  font-size: 16px;
+  padding: 9px 20px 7px 32px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  }
+
+  #ul4, #ul3, #ul2, #ul1 {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #ul4 li a, #ul3 li a , #ul2 li a , #ul1 li a {
+    border: 1px solid #ddd;
+    margin-top: -1px; /* Prevent double borders */
+    background-color: #f6f6f6;
+    padding: 4px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block
+  }
+  
+  #ul4 li a:hover:not(.header),
+  #ul3 li a:hover:not(.header),
+  #ul2 li a:hover:not(.header),
+  #ul1 li a:hover:not(.header) {
+    background-color: #eee;
+  }
+
+  .input-icons i {
+    position: absolute;
+    color: black;
+    margin-top: 12px;
+    padding-left: 7px;
+  }
+  </style>
+
+<div
+  class="Rubrik"
+  style="
+    text-align: center;
+    background-color: antiquewhite;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  "
+>
+  <h1>Bokning</h1>
+</div>
+
+<div class="UnderRubrik">
+  <div class="container">
+    <form action= "" method="POST">
+      {%if message%}
+      <div class="message">{{message}}</div>
+      {%endif%}
+      
+      {{form.hidden_tag()}}
+      <!--<fieldset style="padding: 1em;"> -->
+        <legend class="w3-large" style="font-size: large">Boka rum</legend>
+
+          <div class="form-group">
+            {{form.startdatum.label(class="form-control-label")}} 
+            {%if form.startdatum.errors%} 
+            {{form.startdatum(type="date", min="2021-12-01", max="2021-12-31")}}
+            <div class="invalid-feedback">
+              {% for error in form.startdatum.errors%}
+                <span>{{error}}</span>
+              {%endfor%}
+            </div>
+            {%else%} 
+              {{form.startdatum(type="date")}} 
+            {%endif%}
+          </div>
+          <div class="form-group">
+            {{form.slutdatum.label(class="form-control-label")}} 
+            {%if form.slutdatum.errors%} 
+            {{form.slutdatum(type="date")}}
+              <div class="invalid-feedback">
+                {% for error in form.slutdatum.errors%}
+                    <span>{{error}}</span>
+                {%endfor%}
+              </div>
+            {%else%} 
+              {{form.slutdatum(type="date")}}
+            {%endif%}
+          </div>
+
+        <div class="form-group">
+          {{form.rum.label(class="form-control-label")}} 
+          {%if form.rum.errors%} 
+          {{form.rum(type="select")}}
+          <div class="invalid-feedback">
+            {% for error in form.rum.errors%}
+                <span>{{error}}</span>
+            {%endfor%}
+          </div>
+          {%else%} 
+            {{form.rum(type="select")}}
+          {%endif%}
+        </div>
+
+      <!--</fieldset>-->
+      <div class="w3-margin-bottom">
+        {{ form.submit(class="btn btn-outline-info")}}
+      </div>
+    </form>
+    <h2>Här visas lediga rum</h2>
+    <h4>Klicka på rummet ni är intresserade på</h4>
+    <div id="myBtnContainer">
+      <button class="bton active" onclick="filterSelection('rum1')"> Rum 1</button>
+      <button class="bton" onclick="filterSelection('rum2')"> Rum 2</button>
+      <button class="bton" onclick="filterSelection('rum3')"> Rum 3</button>
+      <button class="bton" onclick="filterSelection('rum4')"> Rum 4</button>
+    </div>
+    
+    <div>
+      <div class="filterDiv rum1 input-icons">
+        <i class="fa fa-fw fa-search w3-large"></i>
+        <input id="Input1" onkeyup="myFunction('Input1','ul1')" placeholder="Leta efter lediga datum.." title="Type in a name">
+        
+        <ul id="ul1">
+          {% for rum, datum in dictmedledigadatum.items() %}
+            {% if rum == 1 %}
+              {% for i in range(getlength(datum)) %}
+                <li><a >{{datum[i].strftime("%Y-%m-%d")}}</a></li>
+              {%endfor%}
+            {%endif%}
+          {% endfor %}
+        </ul>
+      </div>
+    
+    </div>
+
+    <div>
+      <div class="filterDiv rum2 input-icons">
+        <i class="fa fa-fw fa-search w3-large"></i>
+        <input type="text" id="Input2" onkeyup="myFunction('Input2','ul2')" placeholder="Leta efter lediga datum.." title="Type in a name">
+        
+        <ul id="ul2">
+          {% for rum, datum in dictmedledigadatum.items() %}
+            {% if rum == 2 %}
+              {% for i in range(getlength(datum)) %}
+                <li><a>{{datum[i].strftime("%Y-%m-%d")}}</a></li>
+              {%endfor%}
+            {%endif%}
+          {% endfor %}
+        </ul>
+      </div>
+    
+    </div>
+
+    <div>
+      <div class="filterDiv rum3 input-icons">
+        <i class="fa fa-fw fa-search w3-large"></i>
+        <input type="text" id="Input3" onkeyup="myFunction('Input3','ul3')" placeholder="Leta efter lediga datum.." title="Type in a name">
+        
+        <ul id="ul3">
+          {% for rum, datum in dictmedledigadatum.items() %}
+            {% if rum == 3 %}
+              {% for i in range(getlength(datum)) %}
+                <li><a>{{datum[i].strftime("%Y-%m-%d")}}</a></li>
+              {%endfor%}
+            {%endif%}
+          {% endfor %}
+        </ul>
+      </div>
+    
+    </div>
+
+
+    <div>
+      <div class="filterDiv rum4 input-icons">
+        <i class="fa fa-fw fa-search w3-large"></i>
+        <input type="text" id="Input4" onkeyup="myFunction('Input4','ul4')" placeholder="Leta efter lediga datum.." title="Type in a name">
+        
+        <ul id="ul4">
+          {% for rum, datum in dictmedledigadatum.items() %}
+            {% if rum == 4 %}
+              {% for i in range(getlength(datum)) %}
+                <li><a>{{datum[i].strftime("%Y-%m-%d")}}</a></li>
+              {%endfor%}
+            {%endif%}
+          {% endfor %}
+        </ul>
+      </div>
+    
+    </div>
+
+  </div> 
+
+  <div
+    class="left-info"
+    style="
+      display: flex;
+      flex-direction: column;
+      padding-top: 20px;
+      align-items: center;
+    "
+  >
+    <div class="slider-frame">
+      <div class="wrapper">
+        <img
+          src="{{url_for('static', filename='Images/room_single.jpg')}}"
+        />
+        <img src="{{url_for('static', filename='Images/room_single2.jpg')}}" />
+        <img src="{{url_for('static', filename='Images/room_double.jpg')}}" />
+        <img src="{{url_for('static', filename='Images/bedroom.jpg')}}" />
+        
+        <div class="bildRubrik">
+          <h4> Rum 1</h4>
+          <p>Enkel för 1 person</p>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div class="container">
+      <h3>Upptagna rum under perioden: </h3>
+      <h4>{{bokningstartdatum.strftime("%Y-%m-%d")}} och {{bokningslutdatum.strftime("%Y-%m-%d")}}</h4>
+      <ul id="myUL">
+      
+        {% for bokning in allaupptagnabokningar %}
+          
+          Rum {{ bokning.Rum_id }}
+          <p>från {{bokning.StartDatum.strftime("%Y-%m-%d")}}</p>
+          <p>till {{bokning.SlutDatum.strftime("%Y-%m-%d")}} </p>
+    
+        {% endfor %}
+      </ul>
+   
+    </div>
+
+    
+  </div>
+</div>
+{%endblock%}

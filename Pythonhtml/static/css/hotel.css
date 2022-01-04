@@ -1,0 +1,152 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background-image: url("../Images/Woodbackground.jpg");
+}
+p.bil {
+  font-weight: bolder;
+  font-family: Courier;
+  font-size: large;
+  text-align: center;
+}
+h4.bil {
+  font-family: cursive;
+  font-size: medium;
+}
+p {
+  font-family: verdana;
+  font-size: small;
+}
+header {
+  padding: 5%;
+  color: maroon;
+  padding-bottom: 0;
+}
+.navbar {
+  overflow: hidden;
+  background-color: rgba(175, 166, 166, 0.79);
+  position: inherit;
+  top: 0;
+  width: 100%;
+}
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 2% 3%;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+}
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+  border-bottom: 3px solid red;
+}
+.navbar a.active {
+  background: #ddd;
+  border-bottom: 3px solid red !important;
+  color: black;
+}
+
+.button {
+  display: inline-block;
+  padding: 20px 45px;
+  font-size: 25px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #777;
+  background-color: gainsboro;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 6px #999;
+}
+
+.button:hover {
+  background-color: rgba(209, 163, 102, 0.952);
+  color: ghostwhite;
+}
+.button:active {
+  background-color: black;
+  box-shadow: 0 5px 5px #666;
+  transform: translateY(5px);
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  background: rgba(175, 166, 166, 0.79);
+}
+.main > div {
+  flex: 1;
+}
+.main > img {
+  width: 50%;
+  border-radius: 5%;
+  margin-right: 5%;
+}
+section {
+  padding: 5%;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+.UnderRubrik {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 1000px;
+}
+.content {
+  justify-content: space-evenly;
+  background-color: rgba(175, 166, 166, 0.79);
+  padding: 20px;
+}
+.success {
+  text-align: center;
+  color: green;
+  font-family: Verdana, Tahoma, sans-serif;
+  border: green solid;
+  background-color: black;
+  animation: forwards;
+  font-size: large;
+}
+.failure {
+  text-align: center;
+  color: red;
+  font-family: Verdana, Tahoma, sans-serif;
+  border: red solid;
+  background-color: black;
+  animation: backwards;
+  font-size: large;
+}
+footer {
+  padding: 5%;
+  padding-top: 0;
+  text-align: center;
+  color: white;
+}
+.flex-container {
+  padding: 5%;
+  display: flex;
+  background-color: antiquewhite;
+  flex-direction: row;
+}
+.flex-container > img {
+  flex: 1;
+  margin: 2%;
+}
+.flex-container > div {
+  background-color: maroon;
+  margin: 5%;
+  padding: 5%;
+  font-size: 5%;
+}
+@media (max-width: 600px) {
+  header {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}

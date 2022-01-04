@@ -1,0 +1,53 @@
+{% extends 'baseHotel.html'%} {%block navbar%}
+
+  <a href="{{ url_for('hem')}}" class="active"
+    ><i class="fa fa-fw fa-home"></i>Hem</a
+  >
+  <a href="{{ url_for('omWaikiki')}}"
+    ><i class="fa fa-fw fa-search"></i>Om Waikiki</a
+  >
+  
+  <a href="#kontakt"><i class="fa fa-fw fa-envelope"></i>Kontakta Oss</a>
+{%endblock%} {% block main %}
+
+<div class="Rubrik" style="text-align: center; background-color: antiquewhite">
+  <h1>Hotel Waikiki</h1>
+</div>
+
+<div class="w3-row-padding w3-margin-top" style="padding: 0 8px 10px">
+  <div class="w3-third">
+    <div class="w3-card">
+      <img src="../static/Images/hotel.jpg" style="width: 100%" />
+      <div class="w3-container" style="background-color: antiquewhite">
+        <h4>Lyx Rum</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-third">
+    <div class="w3-card">
+      <img src="../static/Images/bedroom.jpg" style="width: 100%" />
+      <div class="w3-container">
+        <h4>Dubbelrum</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-third">
+    <div class="w3-card">
+      <img src="../static/Images/breakfast.jpg" style="width: 100%" />
+      <div class="w3-container">
+        <h4>Frukost</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="Rubrik"
+  style="text-align: center; background-color: antiquewhite; padding: 1%"
+>
+  <a href="{{ url_for('bokning')}}"><button class="button">Boka Rum</button></a>
+
+</div>
+{%endblock%}

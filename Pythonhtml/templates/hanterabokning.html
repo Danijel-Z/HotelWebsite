@@ -1,0 +1,253 @@
+{% extends 'baseHotel.html' %} {%block navbar%}
+
+  <a href="{{ url_for('hem')}}" 
+    ><i class="fa fa-fw fa-home"></i>Hem</a
+  >
+  <a href="{{ url_for('omWaikiki')}}"
+    ><i class="fa fa-fw fa-search"></i>Om Waikiki</a
+  >
+  <a href="#kontakt"><i class="fa fa-fw fa-envelope"></i>Kontakta Oss</a>
+{%endblock%} {% block main %}
+
+<style>
+    /* Button used to open the contact form - fixed at the bottom of the page */
+    .open-button {
+      background-color: #555;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+      position: inherit;
+      bottom: 20px;
+      right: 28px;
+      width: 280px;
+    }
+    
+    /* The popup form - hidden by default */
+    .form-popup {
+      display: none;
+      position: relative;
+      bottom: 203px;
+      right: 2%;
+      border: 3px solid #f1f1f1;
+      z-index: 9;
+    }
+    
+    /* Add styles to the form container */
+    .form-container {
+      max-width: 450px;
+      padding: 10px;
+      background-color: white;
+    }
+    
+    /* Full-width input fields */
+    .form-container input[type=text], .form-container input[type=password] {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #f1f1f1;
+    }
+    
+    /* When the inputs get focus, do something */
+    .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+    
+    /* Set a style for the submit/login button */
+    .form-container .btn {
+      background-color: #04AA6D;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom:10px;
+      opacity: 0.8;
+    }
+    
+    /* Add a red background color to the cancel button */
+    .form-container .cancel {
+      background-color: red;
+    }
+    
+    /* Add some hover effects to buttons */
+    .form-container .btn:hover, .open-button:hover {
+      opacity: 1;
+    }
+
+    /* Modal */
+
+    .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    }
+    </style>
+
+<div class="Rubrik" style="text-align: center; background-color: antiquewhite">
+  <h1>Min Hotel Bokning</h1>
+</div>
+
+    <div class="container">
+        Rum {{ bokning.Rum_id }}
+        <p>från {{bokning.StartDatum.strftime("%Y-%m-%d")}} </p>
+        <p>till {{bokning.SlutDatum.strftime("%Y-%m-%d")}}</p>
+        <p>Pris: {{ bokning.rum.Pris}}</p>
+        <p>Typ av rum: {{ bokning.rum.TypAvRum}}</p>
+        <p>Antal personer: {{ bokning.rum.AntalPersoner}}</p>
+        
+     
+        <button class="open-button" onclick="openForm()">Ändra Bokning</button>
+
+        <div class="form-popup" id="myForm">
+            <form action="" class="form-container" method="POST">
+                {{ form.hidden_tag() }}
+                <h1>Ändra Bokning</h1>
+  
+                    {{form.startdatum.label(for=email)}} 
+                    {%if form.startdatum.errors%} 
+                    {{form.startdatum(type="date")}}
+                    <div class="invalid-feedback">
+                      {% for error in form.startdatum.errors%}
+                        <span>{{error}}</span>
+                      {%endfor%}
+                    </div>
+                    {%else%} 
+                      {{form.startdatum(type="date")}} 
+                    {%endif%}
+                  
+          
+                    <div class="w3-margin-top">    
+                      {{form.slutdatum.label(class="form-control-label")}} 
+                      {%if form.slutdatum.errors%} 
+                      {{form.slutdatum(type="date")}}
+                        <div class="invalid-feedback">
+                          {% for error in form.slutdatum.errors%}
+                              <span>{{error}}</span>
+                          {%endfor%}
+                        </div>
+                      {%else%} 
+                        {{form.slutdatum(type="date")}}
+                      {%endif%}
+                    </div>
+          
+                    <div class="w3-margin-top">  
+                      {{form.rum.label(class="form-control-label")}} 
+                      {%if form.rum.errors%} 
+                      {{form.rum(class="form-control form-control-lg is-invalid")}}
+                      <div class="invalid-feedback">
+                        {% for error in form.rum.errors%}
+                            <span>{{error}}</span>
+                        {%endfor%}
+                      </div>
+                      {%else%} 
+                        {{form.rum(class="form-control form-control-lg")}}
+                      {%endif%}
+                    </div>
+
+                    <div class="w3-margin-bottom">
+                        {{ form.submit(type="submit", class="btn", id = "test")}}
+                    </div>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Avbryt</button>
+                    
+                
+
+            </form>
+  
+          </div>
+          
+          
+        <button type="button" id="myBtn">Avboka bokningen</button>
+        
+    </div>
+    
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Vill du avboka?</p>
+            <a href="{{ url_for('raderabokning', rum_id=bokning.Rum_id, startDatum= bokning.StartDatum) }}" method = "POST"><button>Ja</button></a>
+            
+            <button id="clsBtn">Nej, avbryt</button>
+        </div>
+    </div>
+
+    <script>
+        function openForm() {
+        document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+        }
+
+
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        var closebtn=
+        document.getElementById("clsBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+        modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+        modal.style.display = "none";
+        }
+
+        closebtn.onclick = function() {
+        modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        }
+    </script>
+
+{%endblock%}

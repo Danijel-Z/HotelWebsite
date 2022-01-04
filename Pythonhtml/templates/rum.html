@@ -1,0 +1,67 @@
+{% extends "baseHotel.html" %} {%block content%}
+<h1>Skapa rum</h1>
+<div>
+    <form action="/nyrum" method="POST">
+        {%if message%}
+        <div class="message">{{message}}</div>
+        {%endif%}
+        <div class="form-group">
+          <h3>Typ Av Rum</h3>
+          <input
+            type="text"
+            name="TypAvRum"
+            placeholder="Enkel/Dubbel"
+          />
+        </div>
+  
+        <div class="form-group">
+          <h3>Antal personer</h3>
+          <input
+            type="text"
+            name="AntalPersoner"
+            placeholder="Mellan 1 och 2"
+          />
+        </div>
+
+        <div class="form-group">
+            <h3>Rumets area</h3>
+            <input
+              type="text"
+              name="Area"
+              placeholder="Per m2"
+            />
+        </div>
+
+        <div class="form-group">
+            <h3>Extra säng</h3>
+            <input
+              type="text"
+              name="ExtraSäng"
+              placeholder="Mellan 0 och 2"
+            />
+          </div>
+
+        <div class="form-group">
+            <h3>Rumets pris</h3>
+            <input
+              type="text"
+              name="Pris"
+              placeholder="Valuta i kronor"
+            />
+        </div>
+  
+        <div class="form-group">
+          <h3>Rum</h3>
+          <select name="rum">
+            <option value="">Välj rum</option>
+            <option value="1">Enkelrum/1 Person/400kr/13m2</option>
+            <option value="2">Enkelrum/2 Personer/700kr/16m2</option>
+            <option value="3">Dubbelrum/2 Personer/1200kr/20m2</option>
+            <option value="4">Dubbelrum/2 Personer/1500kr/25m2/+1 Extra säng</option>
+          </select>
+        </div>
+
+        <input type="submit" value="Skapa Rum" class="btn" />
+      </form>
+</div>
+{% endblock %}

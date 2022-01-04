@@ -1,0 +1,59 @@
+{% extends "baseHotel.html" %} {%block content%}
+
+<div class="Rubrik" style="text-align: left; background-color: antiquewhite; padding-bottom: 15px;">
+    <h1>{{current_user.Namn}}</h1>
+    <p style="font-family: cursive;">{{current_user.Mail}}</p>
+  </div>
+
+<form method="POST" action="" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+        <legend >Konto info</legend>
+        <div class="form-group">
+            {{ form.användarnamn.label(class="form-control-label") }}
+
+            {% if form.användarnamn.errors %}
+                {{ form.användarnamn(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.användarnamn.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.användarnamn(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.email.label(class="form-control-label") }}
+            {% if form.email.errors %}
+                {{ form.email(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.email(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.mobilnummer.label(class="form-control-label") }}
+            {% if form.mobilnummer.errors %}
+                {{ form.mobilnummer(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.mobilnummer.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.mobilnummer(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+       
+    </fieldset>
+    <div class="form-group">
+        {{ form.submit(class="btn btn-outline-info") }}
+    </div>
+</form>
+{%endblock%}

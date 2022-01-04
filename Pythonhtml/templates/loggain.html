@@ -1,0 +1,61 @@
+{% extends "baseHotel.html" %} {%block content%}
+<div>
+  <form method="POST" action="">
+    {{form.hidden_tag()}}
+    <fieldset>
+      <legend style="font-size: large">Logga in</legend>
+
+      <div>
+        {{form.email.label(class="form-control-label")}} {%if
+        form.email.errors%} {{form.email(class="form-control form-control-lg
+        is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.email.errors%}
+          <span>{{error}}</span>
+          {%endfor%}
+        </div>
+        {%else%} {{form.email(class="form-control form-control-lg")}} {%endif%}
+      </div>
+
+      <div>
+        {{form.lösenord.label(class="form-control-label")}} {%if
+        form.lösenord.errors%} {{form.lösenord(class="form-control
+        form-control-lg is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.lösenord.errors%}
+          <span>{{error}}</span>
+          {%endfor%}
+        </div>
+        {%else%} {{form.lösenord(class="form-control form-control-lg")}}
+        {%endif%}
+      </div>
+
+      <div class="form-check">
+        {{form.komihågmig(class="form-check-input")}}
+        {{form.komihågmig.label(class="form-check-label")}}
+
+      </div>
+    </fieldset>
+    <div class="w3-margin-bottom">
+      {{ form.submit(class="btn btn-outline-info")}}
+    </div>
+  </form>
+</div>
+
+<div>
+  <small class="w3-medium">
+    Ingen konto?
+    <a
+      style="
+        text-decoration: none;
+        color: darkblue;
+        border: solid;
+        border-color: antiquewhite;
+        background-color: blanchedalmond;
+      "
+      href="{{url_for('registrera') }}"
+      >Registrera nu!</a
+    >
+  </small>
+</div>
+{%endblock%}

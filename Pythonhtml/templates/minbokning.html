@@ -1,0 +1,43 @@
+{% extends 'baseHotel.html'%} {%block navbar%}
+
+  <a href="{{ url_for('hem')}}" 
+    ><i class="fa fa-fw fa-home"></i>Hem</a
+  >
+  <a href="{{ url_for('omWaikiki')}}"
+    ><i class="fa fa-fw fa-search"></i>Om Waikiki</a
+  >
+
+  <a href="#kontakt"><i class="fa fa-fw fa-envelope"></i>Kontakta Oss</a>
+{%endblock%} {% block main %}
+
+<div class="Rubrik" style="text-align: center; background-color: antiquewhite">
+  <h1>Min Hotel Bokning</h1>
+</div>
+
+    <div class="bkn-flex" style="display: flex; flex-direction: row; flex-wrap: wrap; margin: auto;">
+        {% for bokning in kund %}
+            <div class="container" style="margin: 1rem; padding: 20px 1rem; flex:none; text-align: center;">
+                <h2><a href="{{url_for('hanterabokning', rum_id = bokning.rum.id, startDatum = bokning.StartDatum)}}">Rum {{ bokning.Rum_id }}</a></h2>
+                <p>från {{bokning.StartDatum.strftime("%Y-%m-%d")}} </p>
+                <p>till {{bokning.SlutDatum.strftime("%Y-%m-%d")}}</p>
+                <p>Pris: {{ bokning.rum.Pris}}</p>
+                <p>Typ av rum: {{ bokning.rum.TypAvRum}}</p>
+                <p>Antal personer: {{ bokning.rum.AntalPersoner}}</p>
+                <h4>
+                  {% if bokning.Fakturor[0].Betalning == False %}
+                  Faktura: Obetald
+                  
+                  {% else %}
+                  Faktura: Betald
+                  
+                  {% endif %}
+                </h4>
+                
+                <a href="{{url_for('betaladfaktura', rum_id= bokning.rum.id, startDatum = bokning.StartDatum)}}"><button>Betala faktura</button></a>
+            
+                
+                
+            </div>
+            {% endfor %}                    
+    </div>
+{%endblock%}

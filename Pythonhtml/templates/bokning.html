@@ -1,7 +1,7 @@
 {% extends 'baseHotel.html'%} {%block navbar%}
 
   <a href="/templates/hotel.html "><i class="fa fa-fw fa-home"></i>Hem</a>
-  <a href="{{ url_for('omWaikiki')}}"
+  <a href="#omWaikiki"
     ><i class="fa fa-fw fa-search"></i>Om Waikiki</a
   >
   <a href="#kontakt"><i class="fa fa-fw fa-envelope"></i>Kontakta Oss</a>
@@ -112,7 +112,7 @@
           <div class="form-group">
             {{form.startdatum.label(class="form-control-label")}} 
             {%if form.startdatum.errors%} 
-            {{form.startdatum(type="date", min="2021-12-01", max="2021-12-31")}}
+            {{form.startdatum(type="date")}}
             <div class="invalid-feedback">
               {% for error in form.startdatum.errors%}
                 <span>{{error}}</span>

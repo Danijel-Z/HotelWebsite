@@ -159,9 +159,9 @@ def bokning():
     return render_template("bokning.html", title="Boka Rum", form=form, allaupptagnabokningar=allaUpptagnabokningar, bokningstartdatum=bokningStartDatum, bokningslutdatum=bokningSlutDatum, dictmedledigadatum=dictMedLedigaDatum, getlength=getLengthFromList)
 
 
-@app.route("/templates/text.html")
+@app.route("/templates/baseHotel.html")
 def omWaikiki():
-    return render_template('text.html')
+    return render_template('baseHotel.html')
 
 
 @app.route("/registrera", methods=["GET", "POST"])

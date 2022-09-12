@@ -146,7 +146,6 @@ footer {
 }
 @media (max-width: 600px) {
   header {
-    -webkit-flex-direction: column;
     flex-direction: column;
   }
 }
